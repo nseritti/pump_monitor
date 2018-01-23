@@ -4,9 +4,6 @@ dir=data_files
 file_prefix=$(date +%F_%H%M)
 data_file=$(date +%F_%H%M)_datafile
 
-export http_proxy=proxy.keybank.com
-export https_proxy=proxy.keybank.com:80
-
 if [[ ! -e $dir ]]; then
     mkdir $dir
 elif [[ ! -d $dir ]]; then
