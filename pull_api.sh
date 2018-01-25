@@ -4,6 +4,9 @@ dir=data_files
 file_prefix=$(date +%F_%H%M)
 data_file=$(date +%F_%H%M)_datafile
 
+export http_proxy=proxy.keybank.com
+export https_proxy=proxy.keybank.com:80
+
 if [[ ! -e $dir ]]; then
     mkdir $dir
 elif [[ ! -d $dir ]]; then
@@ -41,3 +44,10 @@ fi
     for x in {0..5};do  mysql pump_analysis <<< "truncate table pump_analysis_$(( $x + 1 ));";done
 #Relaoad tables
     for x in {0..5};do mysql pump_analysis --local-infile <<< "LOAD DATA INFILE '/opt/projects/seritn2/pump_monitor/${file_list_array[${x}]}' INTO TABLE pump_analysis_$(( $x + 1 )) FIELDS TERMINATED BY ',';";done
+
+# Lets try to notify on findings
+
+ rowcount=$(mysql pump_analysis < strict_query2.sql | wc -l)
+ if [[ ${rowcount} -gt 1 ]]; then
+   mysql pump_analysis < strict_query2.sql  | tail -n +2 | awk '{print $1}' | while read x; do curl  -L -k https://api.coinmarketcap.com/v1/ticker/$x >> ./data_files/watchlist.json ;done 
+ fi
