@@ -21,6 +21,7 @@
 CREATE DATABASE IF NOT EXISTS pump_analysis;
 
 
+USE pump_analysis;
 --
 -- Table structure for table `pump_analysis_6`
 --
