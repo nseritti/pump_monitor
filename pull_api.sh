@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 dir=data_files
 file_prefix=$(date +%F_%H%M)
 data_file=$(date +%F_%H%M)_datafile
@@ -44,7 +45,7 @@ fi
 
 # Lets try to notify on findings
 
- rowcount=$(mysql pump_analysis < strict_query2.sql | wc -l)
- if [[ ${rowcount} -gt 1 ]]; then
-   mysql pump_analysis < strict_query2.sql  | tail -n +2 | awk '{print $1}' | while read x; do curl  -L -k https://api.coinmarketcap.com/v1/ticker/$x >> ./data_files/watchlist.json ;done 
- fi
+# rowcount=$(mysql pump_analysis < strict_query2.sql | wc -l)
+# if [[ ${rowcount} -gt 1 ]]; then
+#   mysql pump_analysis < strict_query2.sql  | tail -n +2 | awk '{print $1}' | while read x; do curl  -L -k https://api.coinmarketcap.com/v1/ticker/$x >> ./data_files/watchlist.json ;done 
+# fi
